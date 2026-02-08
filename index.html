@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Happy Chocolate Day 🍫</title>
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -11,10 +12,11 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: linear-gradient(to bottom, #3b0a0a, #6e1a1a);
+      background: linear-gradient(135deg, #2b0a0a, #5a0f2f, #8b1e3f);
       font-family: 'Poppins', sans-serif;
-      color: white;
+      color: #ffc0cb;
       text-align: center;
+      height: 100vh;
     }
 
     .screen {
@@ -30,25 +32,27 @@
 
     .title {
       font-family: 'Lobster', cursive;
-      font-size: 44px;
+      font-size: 46px;
       margin-bottom: 20px;
       padding: 0 20px;
+      color: #ffc0cb;
     }
 
     .tap {
       font-size: 18px;
-      opacity: 0.8;
+      opacity: 0.85;
+      color: #ffd6e0;
     }
 
     .chocolate {
       position: absolute;
-      font-size: 80px; /* BIGGER chocolates */
+      font-size: 90px;
       animation: fall linear forwards;
     }
 
     @keyframes fall {
       from {
-        transform: translateY(-80px);
+        transform: translateY(-100px);
         opacity: 1;
       }
       to {
@@ -59,13 +63,14 @@
 
     .final-message {
       position: absolute;
-      bottom: 90px;
+      bottom: 100px;
       width: 100%;
-      font-size: 30px;
+      font-size: 34px;
       font-family: 'Lobster', cursive;
       opacity: 0;
       transition: opacity 1.5s;
       padding: 0 20px;
+      color: #ffd1dc;
     }
   </style>
 </head>
@@ -80,7 +85,7 @@
 </div>
 
 <div class="final-message" id="finalMsg">
-  All these chocolates… and still i am craving for you🥵🤤.
+  All these chocolates… and still not as sweet as you.
 </div>
 
 <script>
@@ -93,7 +98,7 @@
     startScreen.style.display = "none";
 
     const rain = setInterval(() => {
-      for (let i = 0; i < 3; i++) { // more chocolates at once
+      for (let i = 0; i < 4; i++) {
         const choco = document.createElement("div");
         choco.classList.add("chocolate");
         choco.innerText = chocolates[Math.floor(Math.random() * chocolates.length)];
