@@ -1,143 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Happy Chocolate Day 🍫</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      background: linear-gradient(135deg, #2b0a0a, #5a0f2f, #8b1e3f);
-      font-family: 'Poppins', sans-serif;
-      color: #ffc0cb;
-      text-align: center;
-      height: 100vh;
-    }
-
-    .screen {
-      position: absolute;
       width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      cursor: pointer;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow: hidden;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #2b0a0a, #5a0f2f, #8b1e3f);
     }
 
-    .title {
-      font-family: 'Lobster', cursive;
-      font-size: 46px;
-      margin-bottom: 20px;
-      padding: 0 20px;
-      color: #ffc0cb;
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      margin-top: 40px;
+      padding: 0 15px;
     }
 
-    .tap {
+    button {
+      padding: 15px 28px;
       font-size: 18px;
-      opacity: 0.85;
-      color: #ffd6e0;
+      border: none;
+      border-radius: 30px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      margin-top: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
     }
 
     .chocolate {
       position: absolute;
-      font-size: 90px;
-      animation: fall linear forwards;
-      cursor: pointer;
+      font-size: 30px;
+      animation: fall 3s linear forwards;
+      pointer-events: none;
     }
 
     @keyframes fall {
-      from {
-        transform: translateY(-100px);
+      0% {
+        transform: translateY(-50px);
         opacity: 1;
       }
-      to {
+      100% {
         transform: translateY(110vh);
         opacity: 0;
       }
     }
 
-    .final-message {
-      position: absolute;
-      bottom: 140px;
-      width: 100%;
-      font-size: 34px;
-      font-family: 'Lobster', cursive;
-      opacity: 0;
-      transition: opacity 1s;
+    #finalMessage {
+      display: none;
+      font-size: 1.6rem;
+      margin-top: 40px;
+      font-family: 'Pacifico', cursive;
       padding: 0 20px;
-      color: #ffd1dc;
+      animation: fadeIn 2s ease forwards;
     }
 
-    .reveal-btn {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 22px;
-      background: #ff7aa2;
-      color: white;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 30px;
-      cursor: pointer;
-      display: none;
-      font-family: 'Poppins', sans-serif;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
 
-<div class="screen" id="startScreen">
-  <div class="title">
-    Happy Chocolate Day<br>
-    Sweetheart Kuchu Puchu 🍫
+  <h1>Tap to eat chocolates made with love just for you 🍫</h1>
+  <button onclick="startChocolate()">Eat Chocolates</button>
+
+  <div id="finalMessage">
+    You are the sweetest part of my life ❤️
   </div>
-  <div class="tap">Tap anywhere</div>
-</div>
 
-<div class="final-message" id="finalMsg">
-  All these chocolates… and still not as sweet as you.
-</div>
+  <!-- Eating sound -->
+  <audio id="eatSound" src="https://assets.mixkit.co/active_storage/sfx/46/46-preview.mp3"></audio>
 
-<button class="reveal-btn" id="revealBtn">💌 Reveal Message</button>
+  <script>
+    function startChocolate() {
+      const sound = document.getElementById("eatSound");
+      sound.play().catch(() => {});
 
-<!-- Simple click sound -->
-<audio id="eatSound">
-  <source src="https://www.soundjay.com/human/sounds/eating-crunchy-food-1.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-  const startScreen = document.getElementById("startScreen");
-  const finalMsg = document.getElementById("finalMsg");
-  const revealBtn = document.getElementById("revealBtn");
-  const eatSound = document.getElementById("eatSound");
-
-  const chocolates = ["🍫", "🍬", "🍩", "🍪"];
-
-  startScreen.addEventListener("click", () => {
-    startScreen.style.display = "none";
-    revealBtn.style.display = "block";
-
-    setInterval(() => {
-      for (let i = 0; i < 4; i++) {
+      // create falling chocolates
+      for (let i = 0; i < 15; i++) {
         const choco = document.createElement("div");
         choco.classList.add("chocolate");
-        choco.innerText = chocolates[Math.floor(Math.random() * chocolates.length)];
+        choco.innerHTML = "🍫";
 
-        choco.style.left = Math.random() * 100 + "vw";
-        choco.style.animationDuration = (2 + Math.random() * 2) + "s";
-
-        choco.addEventListener("click", () => {
-          eatSound.currentTime = 0;
-          eatSound.play();
-          choco.remove();
-        });
+        choco.style.left = Math.random() * 90 + "vw";
+        choco.style.animationDelay = Math.random() * 1 + "s";
 
         document.body.appendChild(choco);
 
@@ -145,13 +110,13 @@
           choco.remove();
         }, 4000);
       }
-    }, 300);
-  });
 
-  revealBtn.addEventListener("click", () => {
-    finalMsg.style.opacity = "1";
-  });
-</script>
+      // reveal final message
+      setTimeout(() => {
+        document.getElementById("finalMessage").style.display = "block";
+      }, 2500);
+    }
+  </script>
 
 </body>
 </html>
