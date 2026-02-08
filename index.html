@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Happy Chocolate Day 🍫</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -64,12 +63,12 @@
 
     .final-message {
       position: absolute;
-      bottom: 120px;
+      bottom: 140px;
       width: 100%;
       font-size: 34px;
       font-family: 'Lobster', cursive;
       opacity: 0;
-      transition: opacity 1.5s;
+      transition: opacity 1s;
       padding: 0 20px;
       color: #ffd1dc;
     }
@@ -79,10 +78,16 @@
       bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 40px;
+      font-size: 22px;
+      background: #ff7aa2;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 30px;
       cursor: pointer;
-      opacity: 0;
-      transition: opacity 1s;
+      display: none;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -100,10 +105,12 @@
   All these chocolates… and still not as sweet as you.
 </div>
 
-<div class="reveal-btn" id="revealBtn">💌</div>
+<button class="reveal-btn" id="revealBtn">💌 Reveal Message</button>
 
-<!-- Eating sound -->
-<audio id="eatSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c4d6f5b6f.mp3?filename=cartoon-bite-2-189802.mp3"></audio>
+<!-- Simple click sound -->
+<audio id="eatSound">
+  <source src="https://www.soundjay.com/human/sounds/eating-crunchy-food-1.mp3" type="audio/mpeg">
+</audio>
 
 <script>
   const startScreen = document.getElementById("startScreen");
@@ -115,9 +122,9 @@
 
   startScreen.addEventListener("click", () => {
     startScreen.style.display = "none";
-    revealBtn.style.opacity = "1";
+    revealBtn.style.display = "block";
 
-    const rain = setInterval(() => {
+    setInterval(() => {
       for (let i = 0; i < 4; i++) {
         const choco = document.createElement("div");
         choco.classList.add("chocolate");
@@ -126,7 +133,6 @@
         choco.style.left = Math.random() * 100 + "vw";
         choco.style.animationDuration = (2 + Math.random() * 2) + "s";
 
-        // Play sound on click
         choco.addEventListener("click", () => {
           eatSound.currentTime = 0;
           eatSound.play();
@@ -142,7 +148,6 @@
     }, 300);
   });
 
-  // Reveal message on icon click
   revealBtn.addEventListener("click", () => {
     finalMsg.style.opacity = "1";
   });
