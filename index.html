@@ -48,6 +48,7 @@
       position: absolute;
       font-size: 90px;
       animation: fall linear forwards;
+      cursor: pointer;
     }
 
     @keyframes fall {
@@ -63,7 +64,7 @@
 
     .final-message {
       position: absolute;
-      bottom: 100px;
+      bottom: 120px;
       width: 100%;
       font-size: 34px;
       font-family: 'Lobster', cursive;
@@ -71,6 +72,17 @@
       transition: opacity 1.5s;
       padding: 0 20px;
       color: #ffd1dc;
+    }
+
+    .reveal-btn {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 1s;
     }
   </style>
 </head>
@@ -88,14 +100,22 @@
   All these chocolates… and still not as sweet as you.
 </div>
 
+<div class="reveal-btn" id="revealBtn">💌</div>
+
+<!-- Eating sound -->
+<audio id="eatSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c4d6f5b6f.mp3?filename=cartoon-bite-2-189802.mp3"></audio>
+
 <script>
   const startScreen = document.getElementById("startScreen");
   const finalMsg = document.getElementById("finalMsg");
+  const revealBtn = document.getElementById("revealBtn");
+  const eatSound = document.getElementById("eatSound");
 
   const chocolates = ["🍫", "🍬", "🍩", "🍪"];
 
   startScreen.addEventListener("click", () => {
     startScreen.style.display = "none";
+    revealBtn.style.opacity = "1";
 
     const rain = setInterval(() => {
       for (let i = 0; i < 4; i++) {
@@ -106,6 +126,13 @@
         choco.style.left = Math.random() * 100 + "vw";
         choco.style.animationDuration = (2 + Math.random() * 2) + "s";
 
+        // Play sound on click
+        choco.addEventListener("click", () => {
+          eatSound.currentTime = 0;
+          eatSound.play();
+          choco.remove();
+        });
+
         document.body.appendChild(choco);
 
         setTimeout(() => {
@@ -113,10 +140,11 @@
         }, 4000);
       }
     }, 300);
+  });
 
-    setTimeout(() => {
-      finalMsg.style.opacity = "1";
-    }, 4000);
+  // Reveal message on icon click
+  revealBtn.addEventListener("click", () => {
+    finalMsg.style.opacity = "1";
   });
 </script>
 
