@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Happy Chocolate Day 🍫</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -31,7 +30,7 @@
 
     .title {
       font-family: 'Lobster', cursive;
-      font-size: 42px;
+      font-size: 44px;
       margin-bottom: 20px;
       padding: 0 20px;
     }
@@ -43,13 +42,13 @@
 
     .chocolate {
       position: absolute;
-      font-size: 28px;
+      font-size: 48px; /* BIGGER chocolates */
       animation: fall linear forwards;
     }
 
     @keyframes fall {
       from {
-        transform: translateY(-50px);
+        transform: translateY(-80px);
         opacity: 1;
       }
       to {
@@ -60,9 +59,9 @@
 
     .final-message {
       position: absolute;
-      bottom: 80px;
+      bottom: 90px;
       width: 100%;
-      font-size: 28px;
+      font-size: 30px;
       font-family: 'Lobster', cursive;
       opacity: 0;
       transition: opacity 1.5s;
@@ -93,23 +92,23 @@
   startScreen.addEventListener("click", () => {
     startScreen.style.display = "none";
 
-    // Chocolate rain
     const rain = setInterval(() => {
-      const choco = document.createElement("div");
-      choco.classList.add("chocolate");
-      choco.innerText = chocolates[Math.floor(Math.random() * chocolates.length)];
+      for (let i = 0; i < 3; i++) { // more chocolates at once
+        const choco = document.createElement("div");
+        choco.classList.add("chocolate");
+        choco.innerText = chocolates[Math.floor(Math.random() * chocolates.length)];
 
-      choco.style.left = Math.random() * 100 + "vw";
-      choco.style.animationDuration = (2 + Math.random() * 3) + "s";
+        choco.style.left = Math.random() * 100 + "vw";
+        choco.style.animationDuration = (2 + Math.random() * 2) + "s";
 
-      document.body.appendChild(choco);
+        document.body.appendChild(choco);
 
-      setTimeout(() => {
-        choco.remove();
-      }, 5000);
-    }, 200);
+        setTimeout(() => {
+          choco.remove();
+        }, 4000);
+      }
+    }, 300);
 
-    // Show final message after 4 seconds
     setTimeout(() => {
       finalMsg.style.opacity = "1";
     }, 4000);
