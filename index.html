@@ -7,10 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
       background: linear-gradient(135deg, #2b0a0a, #5a0f2f, #8b1e3f);
       font-family: 'Poppins', sans-serif;
       color: #ffc0cb;
@@ -107,7 +110,7 @@
 
 <button class="reveal-btn" id="revealBtn">💌 Reveal Message</button>
 
-<!-- Simple click sound -->
+<!-- Eating sound -->
 <audio id="eatSound">
   <source src="https://www.soundjay.com/human/sounds/eating-crunchy-food-1.mp3" type="audio/mpeg">
 </audio>
@@ -130,7 +133,7 @@
         choco.classList.add("chocolate");
         choco.innerText = chocolates[Math.floor(Math.random() * chocolates.length)];
 
-        choco.style.left = Math.random() * 100 + "vw";
+        choco.style.left = Math.random() * 90 + "vw";
         choco.style.animationDuration = (2 + Math.random() * 2) + "s";
 
         choco.addEventListener("click", () => {
